@@ -23,10 +23,10 @@ if(isset($_POST['submit']) && $_POST['submit'] == 1){
     $count = preg_match_all('/href="[^"]+"/', $_POST['tehcodez']);
 
    echo '<p>Replaced: ' . $count . (($count == 1)? ' link':' links') . '</p>';
-    echo '<textarea id="tehcodez"  rows="25">' . preg_replace_callback('/href="[^"]+"/',
+    echo '<textarea id="tehcodez"  rows="25">' . preg_replace_callback('/href="([^"]+)"/',
             function($matches){
-                $prepend = 'href="http://www.vetuk.co.uk/link.php?href=';
-                return $prepend . urlencode($matches[0]) . '"';
+                $prepend = 'href="http://www.vetuk.co.uk/link.php?n=[#newsletterid]&amp;c=[#customerid]&amp;u=';
+                return $prepend . urlencode($matches[1]) . '"';
             }, preg_replace('/[<]/', '&lt;', $_POST['tehcodez'])) . '</textarea>';
 
     echo '<p>Click in the box and copy the converted code (CTRL+C)</p>';
